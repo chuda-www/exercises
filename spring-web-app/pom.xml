@@ -11,12 +11,9 @@
 
     <artifactId>spring-webapp</artifactId>
 
-
     <packaging>war</packaging>
 
     <name>spring-webapp Maven Webapp</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,5 +50,17 @@
             <artifactId>h2</artifactId>
         </dependency>
     </dependencies>
-
+    <build>
+        <finalName>my-springdatabase</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
