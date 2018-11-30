@@ -3,7 +3,7 @@
   <display-name>spring-mvc-example</display-name>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-servlet.xml</param-value>
+    <param-value>classpath:spring-context.xml</param-value>
   </context-param>
   <listener>
     <!--загружает WebApplicationContext, который по умолчанию использует класс XmlWebApplicationContext-->
@@ -14,10 +14,6 @@
     <servlet-name>spring</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-servlet.xml</param-value>
-    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
