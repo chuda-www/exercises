@@ -1,8 +1,10 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.dao;
+
+import com.epam.viktoryia.springdatabase.model.Employee;
 
 import java.util.List;
 
-interface EmployeeDAO {
+public interface EmployeeDAO {
 
     Integer create(Employee employee);
 

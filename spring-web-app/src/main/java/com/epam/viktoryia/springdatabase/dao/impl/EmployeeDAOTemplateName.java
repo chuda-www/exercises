@@ -1,4 +1,4 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.dao.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

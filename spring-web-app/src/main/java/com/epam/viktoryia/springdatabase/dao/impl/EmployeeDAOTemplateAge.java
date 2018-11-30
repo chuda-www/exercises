@@ -1,5 +1,8 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.dao.impl;
 
+import com.epam.viktoryia.springdatabase.mapper.EmployeeMapper;
+import com.epam.viktoryia.springdatabase.dao.EmployeeDAO;
+import com.epam.viktoryia.springdatabase.model.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;

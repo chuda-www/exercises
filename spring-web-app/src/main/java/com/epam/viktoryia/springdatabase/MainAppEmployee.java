@@ -1,5 +1,7 @@
 package com.epam.viktoryia.springdatabase;
 
+import com.epam.viktoryia.springdatabase.dao.EmployeeDAO;
+import com.epam.viktoryia.springdatabase.model.Employee;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

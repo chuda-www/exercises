@@ -1,5 +1,6 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.mapper;
 
+import com.epam.viktoryia.springdatabase.model.Employee;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

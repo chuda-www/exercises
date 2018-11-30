@@ -1,5 +1,7 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.dao;
 
+import com.epam.viktoryia.springdatabase.dao.impl.EmployeeDAOTemplateAge;
+import com.epam.viktoryia.springdatabase.model.Employee;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

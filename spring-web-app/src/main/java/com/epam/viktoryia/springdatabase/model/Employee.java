@@ -1,4 +1,4 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.model;
 
 public class Employee {
 

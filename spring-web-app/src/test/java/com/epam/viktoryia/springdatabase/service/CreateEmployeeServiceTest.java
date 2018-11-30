@@ -1,5 +1,8 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.service;
 
+import com.epam.viktoryia.springdatabase.dao.EmployeeDAO;
+import com.epam.viktoryia.springdatabase.model.Employee;
+import com.epam.viktoryia.springdatabase.service.CreateEmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

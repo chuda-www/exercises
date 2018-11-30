@@ -1,5 +1,7 @@
-package com.epam.viktoryia.springdatabase;
+package com.epam.viktoryia.springdatabase.service;
 
+import com.epam.viktoryia.springdatabase.model.Employee;
+import com.epam.viktoryia.springdatabase.service.CreateEmployeeService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
