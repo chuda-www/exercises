@@ -2,7 +2,6 @@ package com.epam.viktoryia.springdatabase.service;
 
 import com.epam.viktoryia.springdatabase.model.Employee;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
