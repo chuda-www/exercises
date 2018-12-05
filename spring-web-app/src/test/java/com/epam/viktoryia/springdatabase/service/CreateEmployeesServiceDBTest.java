@@ -44,6 +44,7 @@ public class CreateEmployeesServiceDBTest {
     @Test
     public void getEmployees() {
         List <Employee> list = createEmployeesService.getEmployees();
+        System.out.println(list.size());
         Assert.assertTrue(list.size() == 1);
         System.out.println(list);
     }
@@ -71,6 +72,7 @@ public class CreateEmployeesServiceDBTest {
 
     @Before
     public void setUp() throws Exception {
-        JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
+//        JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
+        System.out.println(JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'"));
     }
 }
