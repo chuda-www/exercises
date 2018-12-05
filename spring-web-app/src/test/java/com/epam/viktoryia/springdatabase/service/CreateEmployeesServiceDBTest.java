@@ -49,8 +49,6 @@ public class CreateEmployeesServiceDBTest {
         System.out.print("list  " + employeeList);
     }
 
-
-
     @Test
     public void createTestExeption() {
         List <Employee> employeeList = new ArrayList <>();
