@@ -2,6 +2,7 @@ package com.epam.viktoryia.springdatabase.service;
 
 import com.epam.viktoryia.springdatabase.model.Employee;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ public class CreateEmployeesServiceDBTest {
 
     @Test
     public void createEmployees() {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
 //        Init
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(createEmployeeObject("Yulia", 11));
@@ -36,20 +36,20 @@ public class CreateEmployeesServiceDBTest {
 
 //        Validate
         int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertTrue(rowsInTable == 2);
+        Assert.assertTrue(rowsInTable == 3);
         Assert.assertNotNull(employeeList);
         System.out.print("list  " + employeeList);
     }
+
     @Test
     public void getEmployees() {
         List <Employee> list = createEmployeesService.getEmployees();
         Assert.assertTrue(list.size() == 1);
-        System.out.println(list);
+        System.out.println(createEmployeesService.getEmployees());
     }
 
     @Test
     public void createTestExeption() {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(createEmployeeObject("AAA", 11));
         employeeList.add(createEmployeeObject("AAA", 52));
@@ -59,7 +59,7 @@ public class CreateEmployeesServiceDBTest {
             System.out.println("DuplicateKeyException");
         }
         int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertTrue(rowsInTable1 == 0);
+        Assert.assertTrue(rowsInTable1 == 1);
     }
 
     private static Employee createEmployeeObject(String name, Integer age) {
@@ -67,5 +67,10 @@ public class CreateEmployeesServiceDBTest {
         employee.setName(name);
         employee.setAge(age);
         return employee;
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name != 'Nana'");
     }
 }
