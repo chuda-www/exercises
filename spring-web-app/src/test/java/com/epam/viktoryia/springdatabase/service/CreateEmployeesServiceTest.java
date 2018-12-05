@@ -34,6 +34,13 @@ public class CreateEmployeesServiceTest {
         System.out.print("list  " + employeeList.toString());
     }
 
+    @Test
+    public void getEmployees() {
+        createEmployeesService.getEmployees();
+        verify(employeeDAO, times(1)).listEmployee();
+//        System.out.println(employeeDAO.listEmployee());
+    }
+
     private static Employee createEmployeeObject(String name, Integer age) {
         Employee employee = new Employee();
         employee.setName(name);

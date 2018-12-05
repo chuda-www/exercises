@@ -24,13 +24,9 @@ public class CreateEmployeesServiceDBTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Before
-    public void setUp() throws Exception {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
-    }
-
     @Test
     public void createEmployees() {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
 //        Init
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(createEmployeeObject("Yulia", 11));
@@ -45,9 +41,15 @@ public class CreateEmployeesServiceDBTest {
         Assert.assertNotNull(employeeList);
         System.out.print("list  " + employeeList);
     }
+    @Test
+    public void getEmployees() {
+        createEmployeesService.getEmployees();
+        System.out.println(createEmployeesService.getEmployees());
+    }
 
     @Test
     public void createTestExeption() {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(createEmployeeObject("AAA", 11));
         employeeList.add(createEmployeeObject("AAA", 52));

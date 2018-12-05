@@ -16,7 +16,7 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    CreateEmployeesService createEmployeesService;
+    private CreateEmployeesService createEmployeesService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity createEmployee(@RequestBody List <Employee> employeeList) {
