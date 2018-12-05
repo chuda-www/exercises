@@ -17,7 +17,7 @@ public class MainAppEmployee {
     }
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("/src/main/webapp/WEB-INF/spring-context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml");
         EmployeeDAO employeeDAO = context.getBean(EmployeeDAO.class);
 
         Employee employee1 = createEmployeeObject("Zara", 11);

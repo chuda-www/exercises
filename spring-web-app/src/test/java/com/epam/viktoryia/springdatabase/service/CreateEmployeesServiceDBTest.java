@@ -1,7 +1,6 @@
 package com.epam.viktoryia.springdatabase.service;
 
 import com.epam.viktoryia.springdatabase.model.Employee;
-import com.epam.viktoryia.springdatabase.service.CreateEmployeeService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +16,10 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-context.xml")
-public class CreateEmployeeServiceDBTest {
+public class CreateEmployeesServiceDBTest {
 
     @Autowired
-    private CreateEmployeeService createEmployeeService;
+    private CreateEmployeesService createEmployeesService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -38,7 +37,7 @@ public class CreateEmployeeServiceDBTest {
         employeeList.add(createEmployeeObject("Grad", 52));
 
 //        Execute
-        createEmployeeService.createEmployees(employeeList);
+        createEmployeesService.createEmployees(employeeList);
 
 //        Validate
         int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
@@ -53,7 +52,7 @@ public class CreateEmployeeServiceDBTest {
         employeeList.add(createEmployeeObject("AAA", 11));
         employeeList.add(createEmployeeObject("AAA", 52));
         try {
-            createEmployeeService.createEmployees(employeeList);
+            createEmployeesService.createEmployees(employeeList);
         } catch (Exception e) {
             System.out.println("DuplicateKeyException");
         }

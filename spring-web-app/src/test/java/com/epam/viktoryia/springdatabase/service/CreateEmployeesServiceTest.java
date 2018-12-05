@@ -2,7 +2,6 @@ package com.epam.viktoryia.springdatabase.service;
 
 import com.epam.viktoryia.springdatabase.dao.EmployeeDAO;
 import com.epam.viktoryia.springdatabase.model.Employee;
-import com.epam.viktoryia.springdatabase.service.CreateEmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,9 +16,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CreateEmployeeServiceTest {
+public class CreateEmployeesServiceTest {
     @InjectMocks
-    private CreateEmployeeService createEmployeeService;
+    private CreateEmployeesService createEmployeesService;
     @Mock
     private EmployeeDAO employeeDAO;
 
@@ -30,7 +29,7 @@ public class CreateEmployeeServiceTest {
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(employee1);
         employeeList.add(employee2);
-        createEmployeeService.createEmployees(employeeList);
+        createEmployeesService.createEmployees(employeeList);
         verify(employeeDAO, times(2)).create(anyObject());
         System.out.print("list  " + employeeList.toString());
     }
