@@ -25,6 +25,14 @@ public class CreateEmployeesServiceDBTest {
     private JdbcTemplate jdbcTemplate;
 
     @Test
+    public void getEmployees() {
+        List <Employee> list = createEmployeesService.getEmployees();
+        System.out.println(list.size());
+        Assert.assertTrue(list.size() == 1);
+        System.out.println(list);
+    }
+
+    @Test
     public void createEmployees() {
 //        Init
         List <Employee> employeeList = new ArrayList <>();
@@ -41,13 +49,7 @@ public class CreateEmployeesServiceDBTest {
         System.out.print("list  " + employeeList);
     }
 
-    @Test
-    public void getEmployees() {
-        List <Employee> list = createEmployeesService.getEmployees();
-        System.out.println(list.size());
-        Assert.assertTrue(list.size() == 1);
-        System.out.println(list);
-    }
+
 
     @Test
     public void createTestExeption() {
@@ -72,7 +74,7 @@ public class CreateEmployeesServiceDBTest {
 
     @Before
     public void setUp() throws Exception {
-//        JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
-        System.out.println(JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'"));
+    int result = JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
+        System.out.println(result);
     }
 }
