@@ -24,6 +24,12 @@ public class CreateEmployeesServiceDBTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Before
+    public void setUp() {
+        int result = JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
+        System.out.println(result);
+    }
+
     @Test
     public void getEmployees() {
         List <Employee> list = createEmployeesService.getEmployees();
@@ -68,11 +74,5 @@ public class CreateEmployeesServiceDBTest {
         employee.setName(name);
         employee.setAge(age);
         return employee;
-    }
-
-    @Before
-    public void setUp() throws Exception {
-    int result = JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
-        System.out.println(result);
     }
 }

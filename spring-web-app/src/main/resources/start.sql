@@ -4,4 +4,3 @@
      age  INT NOT NULL,
      PRIMARY KEY (ID)
   );
-
