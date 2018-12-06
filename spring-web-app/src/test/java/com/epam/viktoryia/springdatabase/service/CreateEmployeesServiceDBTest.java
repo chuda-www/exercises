@@ -28,7 +28,7 @@ public class CreateEmployeesServiceDBTest {
     public void getEmployees() {
         List <Employee> list = createEmployeesService.getEmployees();
         System.out.println(list.size());
-        Assert.assertTrue(list.size() == 1);
+        Assert.assertEquals(1, list.size());
         System.out.println(list);
     }
 
@@ -44,7 +44,7 @@ public class CreateEmployeesServiceDBTest {
 
 //        Validate
         int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertTrue(rowsInTable == 3);
+        Assert.assertEquals(3, rowsInTable);
         Assert.assertNotNull(employeeList);
         System.out.print("list  " + employeeList);
     }
@@ -60,7 +60,7 @@ public class CreateEmployeesServiceDBTest {
             System.out.println("DuplicateKeyException");
         }
         int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertTrue(rowsInTable1 == 1);
+        Assert.assertEquals(1, rowsInTable1);
     }
 
     private static Employee createEmployeeObject(String name, Integer age) {
