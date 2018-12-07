@@ -21,7 +21,6 @@
         <property name="locations" value="classpath:application.properties"/>
     </bean>
     <bean name="createEmployeeService" class="com.epam.viktoryia.springdatabase.service.CreateEmployeesService"/>
-    <bean name="restController" class="com.epam.viktoryia.springdatabase.controller.RestController"/>
     <bean id="employeeTemplateDAO" class="com.epam.viktoryia.springdatabase.dao.impl.EmployeeDAOTemplateName">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
