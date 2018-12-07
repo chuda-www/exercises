@@ -33,6 +33,8 @@ public class CreateEmployeesServiceDBTest {
 
     @Test
     public void getEmployees() {
+        String SQL = "INSERT INTO Employee (name, age) VALUES ('Mamba', 30)";
+        jdbcTemplate.update(SQL);
         List<Employee> list = createEmployeesService.getEmployees();
         System.out.println(list.size());
         Assert.assertEquals(1, list.size());
@@ -79,7 +81,7 @@ public class CreateEmployeesServiceDBTest {
 
     @Before
     public void setUp() throws Exception {
-        JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name != 'Nana'");
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
     }
 
     @After
