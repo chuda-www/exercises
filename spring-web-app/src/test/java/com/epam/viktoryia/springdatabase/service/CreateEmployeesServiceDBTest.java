@@ -26,8 +26,13 @@ public class CreateEmployeesServiceDBTest {
     private JdbcTemplate jdbcTemplate;
 
     @Test
+    public void getTest(){
+        int result = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
+        Assert.assertEquals(0,result);
+    }
+
+    @Test
     public void getEmployees() {
-        System.out.println(JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee"));
         createEmployeesService.getEmployees();
         System.out.println(createEmployeesService.getEmployees().size());
         Assert.assertEquals(1, createEmployeesService.getEmployees().size());
