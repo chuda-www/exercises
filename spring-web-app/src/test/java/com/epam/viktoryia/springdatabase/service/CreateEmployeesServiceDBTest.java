@@ -34,9 +34,8 @@ public class CreateEmployeesServiceDBTest {
     @Test
     public void getEmployees() {
         List list = createEmployeesService.getEmployees();
-        list.toString();
         System.out.println(list.size());
-        Assert.assertEquals(1,list.size());
+        Assert.assertTrue(list.size() == 1);
         System.out.println(list);
     }
 
