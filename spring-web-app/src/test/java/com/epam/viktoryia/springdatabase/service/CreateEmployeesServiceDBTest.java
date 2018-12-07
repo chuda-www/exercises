@@ -73,7 +73,7 @@ public class CreateEmployeesServiceDBTest {
 
     @Before
     public void setUp() throws Exception {
-//JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
+        JdbcTestUtils.deleteFromTableWhere(jdbcTemplate, "Employee", "name <> 'Nana'");
     }
 
     @After
