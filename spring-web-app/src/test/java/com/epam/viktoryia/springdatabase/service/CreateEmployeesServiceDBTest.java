@@ -28,10 +28,10 @@ public class CreateEmployeesServiceDBTest {
     @Test
     public void getEmployees() {
         System.out.println(JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee"));
-        List <Employee> list = createEmployeesService.getEmployees();
-        System.out.println(list.size());
-        Assert.assertEquals(1, JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee"));
-        System.out.println(list);
+        createEmployeesService.getEmployees();
+        System.out.println(createEmployeesService.getEmployees().size());
+        Assert.assertEquals(1, createEmployeesService.getEmployees().size());
+        System.out.println(createEmployeesService.getEmployees());
     }
 
     @Test
