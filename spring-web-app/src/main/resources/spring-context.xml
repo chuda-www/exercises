@@ -36,6 +36,5 @@
     </bean>
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="classpath:/start.sql"/>
-        <jdbc:script location="classpath:/test.sql"/>
     </jdbc:initialize-database>
 </beans>

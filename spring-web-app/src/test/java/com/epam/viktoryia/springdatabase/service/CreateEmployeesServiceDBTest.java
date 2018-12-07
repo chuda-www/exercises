@@ -1,7 +1,6 @@
 package com.epam.viktoryia.springdatabase.service;
 
 import com.epam.viktoryia.springdatabase.model.Employee;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,11 +80,6 @@ public class CreateEmployeesServiceDBTest {
 
     @Before
     public void setUp() throws Exception {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
-    }
-
-    @After
-    public void tearDown() throws Exception {
         JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
     }
 }
