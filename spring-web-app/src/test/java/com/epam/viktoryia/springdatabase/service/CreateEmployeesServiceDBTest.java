@@ -35,7 +35,7 @@ public class CreateEmployeesServiceDBTest {
     public void getEmployees() {
         List list = createEmployeesService.getEmployees();
         System.out.println(list.size());
-        Assert.assertSame(1, list.size());
+        Assert.assertEquals(1, list.size());
         System.out.println(list);
     }
 
