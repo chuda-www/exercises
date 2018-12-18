@@ -1,41 +1,47 @@
 package com.epam.viktoryia.springdatabase.controller;
 
+import com.epam.viktoryia.springdatabase.model.Employee;
+import com.epam.viktoryia.springdatabase.service.EmployeesService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "/spring-context.xml",
-        "/spring-servlet.xml"})
-@WebAppConfiguration
-public class RestControllerTest {
-    private MockMvc mockMvc;
+@RunWith(MockitoJUnitRunner.class)
+public class RestControllerTest extends Mockito {
 
-    @Autowired
-    WebApplicationContext wac;
+    private MockMvc mockMvc;
+    @Mock
+    private EmployeesService employeesService;
+    @InjectMocks
+    private RestController restController;
 
     @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+    public void init() throws Exception {
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(restController)
+                .build();
     }
 
     @Test
     public void createEmployeeTest() throws Exception {
+        List <Employee> employeeList = new ArrayList <>();
+        employeesService.createEmployees(employeeList);
         mockMvc.perform(MockMvcRequestBuilders.post("/employee")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content("[{\"name\": \"Joe\",\"age\": \"30\"}]"))
@@ -45,6 +51,13 @@ public class RestControllerTest {
 
     @Test
     public void getAllEmployeeTest() throws Exception {
+        List <Employee> employeeList = new ArrayList <>();
+        Employee employee1 = new Employee();
+        employee1.setAge(30);
+        employee1.setName("Joe");
+        employeeList.add(employee1);
+        when(employeesService.getEmployees()).thenReturn(employeeList);
+
         mockMvc.perform(MockMvcRequestBuilders.get("/employee"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())

@@ -16,10 +16,10 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/spring-context.xml")
-public class CreateEmployeesServiceDBTest {
+public class EmployeesServiceDBTest {
 
     @Autowired
-    private CreateEmployeesService createEmployeesService;
+    private EmployeesService employeesService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -34,7 +34,7 @@ public class CreateEmployeesServiceDBTest {
     public void getEmployees() {
         String SQL = "INSERT INTO Employee (name, age) VALUES ('Mamba', 30)";
         jdbcTemplate.update(SQL);
-        List<Employee> list = createEmployeesService.getEmployees();
+        List<Employee> list = employeesService.getEmployees();
         System.out.println(list.size());
         Assert.assertEquals(1, list.size());
         System.out.println(list);
@@ -48,7 +48,7 @@ public class CreateEmployeesServiceDBTest {
         employeeList.add(createEmployeeObject("Grad", 52));
 
 //        Execute
-        createEmployeesService.createEmployees(employeeList);
+        employeesService.createEmployees(employeeList);
 
 //        Validate
         int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
@@ -63,7 +63,7 @@ public class CreateEmployeesServiceDBTest {
         employeeList.add(createEmployeeObject("AAA", 11));
         employeeList.add(createEmployeeObject("AAA", 52));
         try {
-            createEmployeesService.createEmployees(employeeList);
+            employeesService.createEmployees(employeeList);
         } catch (Exception e) {
             System.out.println("DuplicateKeyException");
         }

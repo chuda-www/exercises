@@ -20,7 +20,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations" value="classpath:application.properties"/>
     </bean>
-    <bean name="createEmployeeService" class="com.epam.viktoryia.springdatabase.service.CreateEmployeesService"/>
+    <bean name="createEmployeeService" class="com.epam.viktoryia.springdatabase.service.EmployeesService"/>
     <bean id="employeeTemplateDAO" class="com.epam.viktoryia.springdatabase.dao.impl.EmployeeDAOTemplateName">
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
