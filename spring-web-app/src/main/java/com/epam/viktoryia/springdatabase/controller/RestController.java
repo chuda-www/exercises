@@ -30,16 +30,16 @@ public class RestController {
         return employeesService.getEmployees();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity updateEmployee(@RequestBody Integer id, Object object) {
-         employeesService.updateEmployees(id, object);
-         return new ResponseEntity(id, HttpStatus.OK);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity updateEmployee(@PathVariable("id") Integer id, @RequestBody Object object) {
+        employeesService.updateEmployees(id, object);
+        return new ResponseEntity(id, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteEmployee(@PathVariable Integer id) {
         employeesService.deleteEmployeeById(id);
     }
-
 }
 
