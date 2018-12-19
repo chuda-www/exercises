@@ -20,7 +20,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RestControllerTest extends Mockito {
@@ -42,6 +41,7 @@ public class RestControllerTest extends Mockito {
     public void createEmployeeTest() throws Exception {
         List <Employee> employeeList = new ArrayList <>();
         employeesService.createEmployees(employeeList);
+
         mockMvc.perform(MockMvcRequestBuilders.post("/employee")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content("[{\"name\": \"Joe\",\"age\": \"30\"}]"))
@@ -60,8 +60,39 @@ public class RestControllerTest extends Mockito {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/employee"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", is("Joe")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].age", is(30)));
+    }
+
+//    @Test
+//    public void updateEmployeeTest() throws Exception {
+//        List <Employee> employeeList = employeesService.getEmployees();
+//        Employee employee1 = new Employee();
+//        employee1.setAge(20);
+//        employee1.setName("Jane");
+//        employee1.setId(1);
+//        employeeList.add(employee1);
+//        employeesService.updateEmployees(1, "Janett");
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/employee/update/1")
+//                .param("name","Janett")
+//                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            //  .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+    //  }
+
+    @Test
+    public void deleteEmployeeTest() throws Exception {
+        List <Employee> employeeList = new ArrayList <>();
+        Employee employee1 = new Employee();
+        employee1.setAge(30);
+        employee1.setName("Hloe");
+        employee1.setId(1);
+        employeeList.add(employee1);
+        employeesService.deleteEmployeeById(employee1.getId());
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employee/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
