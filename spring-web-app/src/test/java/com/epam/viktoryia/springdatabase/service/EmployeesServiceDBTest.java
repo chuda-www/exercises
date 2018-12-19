@@ -25,16 +25,21 @@ public class EmployeesServiceDBTest {
     private JdbcTemplate jdbcTemplate;
 
     @Test
-    public void getTest(){
+    public void getTest() {
         int result = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertEquals(0,result);
+        Assert.assertEquals(0, result);
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
     }
 
     @Test
     public void getEmployees() {
         String SQL = "INSERT INTO Employee (name, age) VALUES ('Mamba', 30)";
         jdbcTemplate.update(SQL);
-        List<Employee> list = employeesService.getEmployees();
+        List <Employee> list = employeesService.getEmployees();
         System.out.println(list.size());
         Assert.assertEquals(1, list.size());
         System.out.println(list);
@@ -43,7 +48,7 @@ public class EmployeesServiceDBTest {
     @Test
     public void createEmployees() {
 //        Init
-        List <Employee> employeeList = new ArrayList <>();
+        List <Employee> employeeList = employeesService.getEmployees();
         employeeList.add(createEmployeeObject("Yulia", 11));
         employeeList.add(createEmployeeObject("Grad", 52));
 
@@ -71,15 +76,28 @@ public class EmployeesServiceDBTest {
         Assert.assertEquals(0, rowsInTable1);
     }
 
+    @Test
+    public void updateEmployeesTest() {
+        String SQL = "INSERT INTO Employee (name, age) VALUES ('Jasmin', 40)";
+        jdbcTemplate.update(SQL);
+        System.out.println(employeesService.getEmployees());
+        employeesService.updateEmployees(1, "Masha");
+        System.out.println(employeesService.getEmployees());
+    }
+
+    @Test
+    public void deleteEmployeeByIdTest() {
+        String SQL = "INSERT INTO Employee (name, age) VALUES ('Jasmin', 40)";
+        jdbcTemplate.update(SQL);
+        System.out.println(employeesService.getEmployees());
+        employeesService.deleteEmployeeById(3);
+        System.out.println(employeesService.getEmployees());
+    }
+
     private static Employee createEmployeeObject(String name, Integer age) {
         Employee employee = new Employee();
         employee.setName(name);
         employee.setAge(age);
         return employee;
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
     }
 }
