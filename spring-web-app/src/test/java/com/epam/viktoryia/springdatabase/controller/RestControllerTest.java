@@ -65,22 +65,21 @@ public class RestControllerTest extends Mockito {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].age", is(30)));
     }
 
-//    @Test
-//    public void updateEmployeeTest() throws Exception {
-//        List <Employee> employeeList = employeesService.getEmployees();
-//        Employee employee1 = new Employee();
-//        employee1.setAge(20);
-//        employee1.setName("Jane");
-//        employee1.setId(1);
-//        employeeList.add(employee1);
-//        employeesService.updateEmployees(1, "Janett");
-//
-//        mockMvc.perform(MockMvcRequestBuilders.put("/employee/update/1")
-//                .param("name","Janett")
-//                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            //  .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-    //  }
+    @Test
+    public void updateEmployeeTest() throws Exception {
+        List <Employee> employeeList = employeesService.getEmployees();
+        Employee employee1 = new Employee();
+        employee1.setAge(20);
+        employee1.setName("Jane");
+        employee1.setId(1);
+        employeeList.add(employee1);
+        employeesService.updateEmployees(1, "Janett");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/employee/1")
+                .content("\"Janett\"")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
     @Test
     public void deleteEmployeeTest() throws Exception {
