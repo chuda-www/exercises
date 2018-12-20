@@ -78,7 +78,7 @@ public class EmployeesServiceDBTest {
 
     @Test
     public void updateEmployeesTest() {
-        String SQL = "INSERT INTO Employee (name, age) VALUES ('Jasmin', 40)";
+        String SQL = "INSERT INTO Employee (id, name, age) VALUES (1, 'Jasmin', 40)";
         jdbcTemplate.update(SQL);
         System.out.println(employeesService.getEmployees());
         employeesService.updateEmployees(1, "Masha");
@@ -89,10 +89,10 @@ public class EmployeesServiceDBTest {
 
     @Test
     public void deleteEmployeeByIdTest() {
-        String SQL = "INSERT INTO Employee (name, age) VALUES ('Jasmin', 40)";
+        String SQL = "INSERT INTO Employee (id, name, age) VALUES (1, 'Jasmin', 40)";
         jdbcTemplate.update(SQL);
         System.out.println(employeesService.getEmployees());
-        employeesService.deleteEmployeeById(3);
+        employeesService.deleteEmployeeById(1);
         System.out.println(employeesService.getEmployees());
         int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
         Assert.assertEquals(0, rowsInTable1);
