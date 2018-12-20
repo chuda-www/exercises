@@ -3,12 +3,11 @@ package com.epam.viktoryia.springdatabase.service;
 import com.epam.viktoryia.springdatabase.dao.EmployeeDAO;
 import com.epam.viktoryia.springdatabase.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class CreateEmployeesService {
+public class EmployeesService {
 
     @Autowired
     private EmployeeDAO employeeDAO;
@@ -19,7 +18,17 @@ public class CreateEmployeesService {
             employeeDAO.create(employee);
         }
     }
+
     public List <Employee> getEmployees() {
         return employeeDAO.listEmployee();
     }
+
+    public void updateEmployees(Integer id, Object object) {
+        employeeDAO.update(id, object);
+    }
+
+    public void deleteEmployeeById(Integer id) {
+        employeeDAO.deleteById(id);
+    }
+
 }

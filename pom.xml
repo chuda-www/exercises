@@ -24,6 +24,9 @@
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <jsp-version>RELEASE</jsp-version>
         <jackson-dataformat-xml.version>RELEASE</jackson-dataformat-xml.version>
+        <hamcrest-all.version>1.3</hamcrest-all.version>
+        <json-path.version>2.0.0</json-path.version>
+        <slf4j-simple.version>1.7.25</slf4j-simple.version>
     </properties>
 
     <dependencyManagement>
@@ -94,6 +97,11 @@
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j-api.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j-simple.version}</version>
+            </dependency>
             <!--Testing dependencies-->
             <dependency>
                 <groupId>junit</groupId>
@@ -105,6 +113,18 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito-all.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${hamcrest-all.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json-path.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -138,6 +158,10 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
         <!--Testing dependencies-->
         <dependency>
             <groupId>junit</groupId>
@@ -147,6 +171,16 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

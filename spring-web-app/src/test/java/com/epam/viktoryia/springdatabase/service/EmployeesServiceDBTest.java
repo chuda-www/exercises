@@ -16,25 +16,30 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/spring-context.xml")
-public class CreateEmployeesServiceDBTest {
+public class EmployeesServiceDBTest {
 
     @Autowired
-    private CreateEmployeesService createEmployeesService;
+    private EmployeesService employeesService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Before
+    public void setUp() throws Exception {
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
+    }
+
     @Test
-    public void getTest(){
-        int result = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertEquals(0,result);
+    public void getTest() {
+        int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
+        Assert.assertEquals(0, rowsInTable);
     }
 
     @Test
     public void getEmployees() {
         String SQL = "INSERT INTO Employee (name, age) VALUES ('Mamba', 30)";
         jdbcTemplate.update(SQL);
-        List<Employee> list = createEmployeesService.getEmployees();
+        List <Employee> list = employeesService.getEmployees();
         System.out.println(list.size());
         Assert.assertEquals(1, list.size());
         System.out.println(list);
@@ -43,12 +48,12 @@ public class CreateEmployeesServiceDBTest {
     @Test
     public void createEmployees() {
 //        Init
-        List <Employee> employeeList = new ArrayList <>();
+        List <Employee> employeeList = employeesService.getEmployees();
         employeeList.add(createEmployeeObject("Yulia", 11));
         employeeList.add(createEmployeeObject("Grad", 52));
 
 //        Execute
-        createEmployeesService.createEmployees(employeeList);
+        employeesService.createEmployees(employeeList);
 
 //        Validate
         int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
@@ -63,10 +68,32 @@ public class CreateEmployeesServiceDBTest {
         employeeList.add(createEmployeeObject("AAA", 11));
         employeeList.add(createEmployeeObject("AAA", 52));
         try {
-            createEmployeesService.createEmployees(employeeList);
+            employeesService.createEmployees(employeeList);
         } catch (Exception e) {
             System.out.println("DuplicateKeyException");
         }
+        int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
+        Assert.assertEquals(0, rowsInTable1);
+    }
+
+    @Test
+    public void updateEmployeesTest() {
+        String SQL = "INSERT INTO Employee (id, name, age) VALUES (1, 'Jasmin', 40)";
+        jdbcTemplate.update(SQL);
+        System.out.println(employeesService.getEmployees());
+        employeesService.updateEmployees(1, "Masha");
+        System.out.println(employeesService.getEmployees());
+        int rowsInTable1 = JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "Employee", "name = 'Masha'");
+        Assert.assertEquals(1, rowsInTable1);
+    }
+
+    @Test
+    public void deleteEmployeeByIdTest() {
+        String SQL = "INSERT INTO Employee (id, name, age) VALUES (1, 'Jasmin', 40)";
+        jdbcTemplate.update(SQL);
+        System.out.println(employeesService.getEmployees());
+        employeesService.deleteEmployeeById(1);
+        System.out.println(employeesService.getEmployees());
         int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
         Assert.assertEquals(0, rowsInTable1);
     }
@@ -76,10 +103,5 @@ public class CreateEmployeesServiceDBTest {
         employee.setName(name);
         employee.setAge(age);
         return employee;
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
     }
 }

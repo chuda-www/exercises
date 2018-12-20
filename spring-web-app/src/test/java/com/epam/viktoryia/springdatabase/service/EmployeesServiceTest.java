@@ -16,9 +16,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CreateEmployeesServiceTest {
+public class EmployeesServiceTest {
     @InjectMocks
-    private CreateEmployeesService createEmployeesService;
+    private EmployeesService employeesService;
     @Mock
     private EmployeeDAO employeeDAO;
 
@@ -29,16 +29,15 @@ public class CreateEmployeesServiceTest {
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(employee1);
         employeeList.add(employee2);
-        createEmployeesService.createEmployees(employeeList);
+        employeesService.createEmployees(employeeList);
         verify(employeeDAO, times(2)).create(anyObject());
         System.out.print("list  " + employeeList.toString());
     }
 
     @Test
     public void getEmployees() {
-        createEmployeesService.getEmployees();
+        employeesService.getEmployees();
         verify(employeeDAO, times(1)).listEmployee();
-//        System.out.println(employeeDAO.listEmployee());
     }
 
     private static Employee createEmployeeObject(String name, Integer age) {
