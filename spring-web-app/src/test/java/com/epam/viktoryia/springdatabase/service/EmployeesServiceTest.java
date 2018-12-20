@@ -38,7 +38,6 @@ public class EmployeesServiceTest {
     public void getEmployees() {
         employeesService.getEmployees();
         verify(employeeDAO, times(1)).listEmployee();
-//        System.out.println(employeeDAO.listEmployee());
     }
 
     private static Employee createEmployeeObject(String name, Integer age) {

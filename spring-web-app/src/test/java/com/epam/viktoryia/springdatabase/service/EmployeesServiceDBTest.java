@@ -24,15 +24,15 @@ public class EmployeesServiceDBTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Test
-    public void getTest() {
-        int result = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertEquals(0, result);
-    }
-
     @Before
     public void setUp() throws Exception {
         JdbcTestUtils.deleteFromTables(jdbcTemplate, "Employee");
+    }
+
+    @Test
+    public void getTest() {
+        int rowsInTable = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
+        Assert.assertEquals(0, rowsInTable);
     }
 
     @Test
@@ -83,6 +83,8 @@ public class EmployeesServiceDBTest {
         System.out.println(employeesService.getEmployees());
         employeesService.updateEmployees(1, "Masha");
         System.out.println(employeesService.getEmployees());
+        int rowsInTable1 = JdbcTestUtils.countRowsInTableWhere(jdbcTemplate, "Employee", "name = 'Masha'");
+        Assert.assertEquals(1, rowsInTable1);
     }
 
     @Test
@@ -92,6 +94,8 @@ public class EmployeesServiceDBTest {
         System.out.println(employeesService.getEmployees());
         employeesService.deleteEmployeeById(3);
         System.out.println(employeesService.getEmployees());
+        int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
+        Assert.assertEquals(0, rowsInTable1);
     }
 
     private static Employee createEmployeeObject(String name, Integer age) {
