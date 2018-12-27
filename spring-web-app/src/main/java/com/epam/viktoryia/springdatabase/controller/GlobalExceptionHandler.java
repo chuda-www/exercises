@@ -14,9 +14,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(DuplicateKeyException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ModelAndView employeeDuplicate(DuplicateKeyException ex) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("exception");
-        return mav;
+    public String employeeDuplicate(DuplicateKeyException ex) {
+        return "DuplicateKeyException";
     }
 }
