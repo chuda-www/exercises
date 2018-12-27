@@ -14,6 +14,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateKeyException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String employeeDuplicate(DuplicateKeyException ex) {
-        return "DuplicateKeyException";
+        return ("*****DuplicateKeyException : " + ex.getMessage());
     }
 }
