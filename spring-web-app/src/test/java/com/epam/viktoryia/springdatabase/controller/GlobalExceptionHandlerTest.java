@@ -30,14 +30,14 @@ public class GlobalExceptionHandlerTest extends Mockito {
     @Test
     public void employeeDuplicateTest() throws Exception {
 
-        when(restController.createEmployee(anyList())).thenThrow(new DuplicateKeyException(anyString()));
+        when(restController.createEmployee(anyList())).thenThrow(new DuplicateKeyException("abc"));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/employee")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .content("[{\"name\": \"Joe\",\"age\": \"31\"},{\"name\": \"Joe\",\"age\": \"30\"}]"))
+                .content("[]"))
                 .andExpect(MockMvcResultMatchers.status()
                         .isBadRequest())
                 .andExpect(MockMvcResultMatchers.content()
-                        .string("*****DuplicateKeyException : "));
+                        .string("*****DuplicateKeyException : abc"));
     }
 }
