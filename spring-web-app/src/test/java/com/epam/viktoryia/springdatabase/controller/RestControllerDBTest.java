@@ -68,8 +68,6 @@ public class RestControllerDBTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("YYY"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(30));
-        int rowsInTable1 = JdbcTestUtils.countRowsInTable(jdbcTemplate, "Employee");
-        Assert.assertEquals(1, rowsInTable1);
     }
 
     @Test
