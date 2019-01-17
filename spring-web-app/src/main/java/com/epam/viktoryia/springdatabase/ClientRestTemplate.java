@@ -7,15 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ClientRestTemplate {
 
     private static RestTemplate restTemplate = new RestTemplate();
-    private static List <Employee> employeeList = new ArrayList <>();
-    private static Employee employee = new Employee();
 
     public static void main(String args[]) throws Exception {
 
@@ -26,42 +23,39 @@ public class ClientRestTemplate {
                 "\nДля отправки DELETE-запроса нажмите 4:");
         try {
             while (scanner.hasNext()) {
-                int i = scanner.nextInt();
-                if (i == 1) {
-                    doPost();
-                }
-                if (i == 2) {
-                    doGet();
-                }
-                if (i == 3) {
-                    doPut();
-                }
-                if (i == 4) {
-                    doDelete();
+                switch (scanner.nextInt()) {
+                    case 1:
+                        doPost();
+                        break;
+                    case 2:
+                        doGet();
+                        break;
+                    case 3:
+                        doPut();
+                        break;
+                    case 4:
+                        doDelete();
+                        break;
+                    default:
+                        System.out.println("Invalid.");
+                        break;
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            scanner.next();
+            System.out.println("Excseption :" + e.getMessage());
         }
     }
 
     private static void doPost() throws RestClientException {
         final String uri = "http://localhost:8080/employee/";
 
-        employee.setName("ggg");
-        employee.setAge(30);
-        employeeList.add(employee);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        HttpEntity httpEntity = new HttpEntity(employeeList, headers);
-        List <Employee> response = restTemplate.postForObject(uri, httpEntity, List.class);
+        HttpEntity httpEntity = new HttpEntity("[{\"id\": \"1\",\"name\": \"XXX\",\"age\": \"30\"}]", headers);
+        restTemplate.postForObject(uri, httpEntity, List.class);
 
         System.out.println("-- response --");
-        System.out.println(employeeList);
     }
 
     private static void doGet() {
@@ -73,25 +67,24 @@ public class ClientRestTemplate {
 
         System.out.println("-- response --");
         System.out.println("Get response: " + response);
-        System.out.println(employeeList);
     }
 
     private static void doPut() throws RestClientException {
-        final String uri = "http://localhost:8080/employee/{id}";
+        final String uri = "http://localhost:8080/employee/1";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         HttpEntity <String> httpEntity = new HttpEntity("\"uuu\"", headers);
-        restTemplate.put(uri, httpEntity, 1);
+        restTemplate.put(uri, httpEntity);
 
         System.out.println("PUT-запрос выполнен ");
     }
 
     private static void doDelete() {
-        final String uri = "http://localhost:8080/employee/{id}";
+        final String uri = "http://localhost:8080/employee/1";
 
-        restTemplate.delete(uri, 1);
+        restTemplate.delete(uri);
 
         System.out.println("DELETE-запрос выполнен ");
     }
