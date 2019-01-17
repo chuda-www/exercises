@@ -4,6 +4,7 @@ import com.epam.viktoryia.springdatabase.model.Employee;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -12,90 +13,86 @@ import java.util.Scanner;
 
 public class ClientRestTemplate {
 
-    public static void main(String args[]) {
+    private static RestTemplate restTemplate = new RestTemplate();
+    private static List <Employee> employeeList = new ArrayList <>();
+    private static Employee employee = new Employee();
 
-        RestTemplate restTemplate = new RestTemplate();
-        System.out.println("Для отправки POST-запроса нажмите 1: ");
-        System.out.println("Для отправки GET-запроса нажмите 2: ");
-        System.out.println("Для отправки PUT-запроса нажмите 3: ");
-        System.out.println("Для отправки DELETE-запроса нажмите 4: ");
+    public static void main(String args[]) throws Exception {
+
         Scanner scanner = new Scanner(System.in);
-
-        while (scanner.hasNext()) {
-            int i = scanner.nextInt();
-            if (i == 1) {
-                try {
-                    doPost(restTemplate);
-                } catch (Exception e) {
-                    e.printStackTrace();
+        System.out.println("Для отправки POST-запроса нажмите 1: " +
+                "\nДля отправки GET-запроса нажмите 2: " +
+                "\nДля отправки PUT-запроса нажмите 3: " +
+                "\nДля отправки DELETE-запроса нажмите 4:");
+        try {
+            while (scanner.hasNext()) {
+                int i = scanner.nextInt();
+                if (i == 1) {
+                    doPost();
                 }
-                scanner.nextInt();
-            }
-            if (i == 2) {
-                doGet(restTemplate);
-                scanner.nextInt();
-            }
-            if (i == 3) {
-                try {
-                    doPut(restTemplate);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (i == 2) {
+                    doGet();
                 }
-                scanner.nextInt();
+                if (i == 3) {
+                    doPut();
+                }
+                if (i == 4) {
+                    doDelete();
+                }
             }
-            if (i == 4) {
-                doDelete(restTemplate);
-                scanner.nextInt();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            scanner.next();
         }
     }
 
-    public static void doPost(RestTemplate restTemplate) throws Exception {
+    private static void doPost() throws RestClientException {
         final String uri = "http://localhost:8080/employee/";
-        List <Employee> employeeList = new ArrayList <>();
-        Employee employee = new Employee();
+
         employee.setName("ggg");
         employee.setAge(30);
         employeeList.add(employee);
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
         HttpEntity httpEntity = new HttpEntity(employeeList, headers);
-        List <Employee> response = restTemplate.postForObject(
-                uri,
-                httpEntity,
-                List.class);
+        List <Employee> response = restTemplate.postForObject(uri, httpEntity, List.class);
+
         System.out.println("-- response --");
         System.out.println(employeeList);
     }
 
-    public static void doGet(RestTemplate restTemplate) {
+    private static void doGet() {
         final String uri = "http://localhost:8080/employee/";
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        List <Employee> response = restTemplate.getForObject(
-                uri, List.class);
+
+        List <Employee> response = restTemplate.getForObject(uri, List.class);
+
         System.out.println("-- response --");
         System.out.println("Get response: " + response);
+        System.out.println(employeeList);
     }
 
-    public static void doPut(RestTemplate restTemplate) throws Exception {
-        final String uri = "http://localhost:8080/employee/1";
+    private static void doPut() throws RestClientException {
+        final String uri = "http://localhost:8080/employee/{id}";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity <String> httpEntity = new HttpEntity("lll", headers);
 
-        restTemplate.put(uri, httpEntity);
-        System.out.println("-- response --");
+        HttpEntity <String> httpEntity = new HttpEntity("\"uuu\"", headers);
+        restTemplate.put(uri, httpEntity, 1);
+
         System.out.println("PUT-запрос выполнен ");
     }
 
-    public static void doDelete(RestTemplate restTemplate) {
-        final String uri = "http://localhost:8080/employee/1";
+    private static void doDelete() {
+        final String uri = "http://localhost:8080/employee/{id}";
 
-        restTemplate.delete(uri);
-        System.out.println("-- response --");
+        restTemplate.delete(uri, 1);
+
         System.out.println("DELETE-запрос выполнен ");
     }
 }
