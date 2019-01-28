@@ -30,11 +30,7 @@ public class ClientRestTemplate {
     public static void main(String args[]) {
 
         Scanner scanner = new Scanner(System.in);
-        String input = "Для отправки POST-запроса нажмите 1: " +
-                "\nДля отправки GET-запроса нажмите 2: " +
-                "\nДля отправки PUT-запроса нажмите 3: " +
-                "\nДля отправки DELETE-запроса нажмите 4:";
-        System.out.println(input);
+        input();
 
         try {
             while (scanner.hasNext()) {
@@ -55,12 +51,19 @@ public class ClientRestTemplate {
                         System.out.println("Invalid.");
                         break;
                 }
-                System.out.println(input);
+                input();
             }
         } catch (Exception e) {
             System.out.println("Excseption :" + e.getMessage());
             scanner.nextInt();
         }
+    }
+
+    private static void input() {
+        System.out.println("Для отправки POST-запроса нажмите 1: " +
+                "\nДля отправки GET-запроса нажмите 2: " +
+                "\nДля отправки PUT-запроса нажмите 3: " +
+                "\nДля отправки DELETE-запроса нажмите 4: ");
     }
 
     private static void doPost() throws Exception {
