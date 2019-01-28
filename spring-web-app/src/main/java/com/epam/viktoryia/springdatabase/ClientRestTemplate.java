@@ -12,8 +12,11 @@ import java.util.Scanner;
 
 public class ClientRestTemplate {
 
-    private static RestTemplate restTemplate = new RestTemplate();
+    private static final Integer ID = 1;
     private static final String URL = "http://localhost:8080/employee/";
+
+    private static RestTemplate restTemplate = new RestTemplate();
+
     private static Employee createEmployeeObject(Integer id, String name, Integer age) {
         Employee employee = new Employee();
         employee.setId(id);
@@ -21,11 +24,17 @@ public class ClientRestTemplate {
         employee.setAge(age);
         return employee;
     }
+
     private static List <Employee> employeeList = new ArrayList <>();
 
     public static void main(String args[]) {
 
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Для отправки POST-запроса нажмите 1: " +
+                "\nДля отправки GET-запроса нажмите 2: " +
+                "\nДля отправки PUT-запроса нажмите 3: " +
+                "\nДля отправки DELETE-запроса нажмите 4:");
         System.out.println("Введите запрос...");
 
         try {
@@ -59,13 +68,13 @@ public class ClientRestTemplate {
     }
 
     private static void doPost() throws Exception {
-        employeeList.add(createEmployeeObject(1, "ggg", 20));
+        employeeList.add(createEmployeeObject(ID, "ggg", 20));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity httpEntity = new HttpEntity(employeeList, headers);
 
-        List <Employee> response = restTemplate.postForObject(URL, httpEntity, List.class);
+        restTemplate.postForObject(URL, httpEntity, List.class);
         System.out.println("POST выполнен");
     }
 
@@ -85,14 +94,14 @@ public class ClientRestTemplate {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         HttpEntity <String> httpEntity = new HttpEntity("\"uuu\"", headers);
-        restTemplate.put(URL + "{id}", httpEntity, 1);
+        restTemplate.put(URL + ID, httpEntity);
 
         System.out.println("PUT выполнен ");
     }
 
     private static void doDelete() throws Exception {
 
-        restTemplate.delete(URL + "{id}", 1);
+        restTemplate.delete(URL + ID, 1);
 
         System.out.println("DELETE выполнен ");
     }
