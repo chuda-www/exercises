@@ -30,12 +30,11 @@ public class ClientRestTemplate {
     public static void main(String args[]) {
 
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Для отправки POST-запроса нажмите 1: " +
+        String input = "Для отправки POST-запроса нажмите 1: " +
                 "\nДля отправки GET-запроса нажмите 2: " +
                 "\nДля отправки PUT-запроса нажмите 3: " +
-                "\nДля отправки DELETE-запроса нажмите 4:");
-        System.out.println("Введите запрос...");
+                "\nДля отправки DELETE-запроса нажмите 4:";
+        System.out.println(input);
 
         try {
             while (scanner.hasNext()) {
@@ -56,10 +55,7 @@ public class ClientRestTemplate {
                         System.out.println("Invalid.");
                         break;
                 }
-                System.out.println("Для отправки POST-запроса нажмите 1: " +
-                        "\nДля отправки GET-запроса нажмите 2: " +
-                        "\nДля отправки PUT-запроса нажмите 3: " +
-                        "\nДля отправки DELETE-запроса нажмите 4:");
+                System.out.println(input);
             }
         } catch (Exception e) {
             System.out.println("Excseption :" + e.getMessage());
@@ -101,7 +97,7 @@ public class ClientRestTemplate {
 
     private static void doDelete() throws Exception {
 
-        restTemplate.delete(URL + ID, 1);
+        restTemplate.delete(URL + ID);
 
         System.out.println("DELETE выполнен ");
     }
