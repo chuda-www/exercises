@@ -48,6 +48,8 @@ public class ClientRestTemplate {
                     case 4:
                         doDelete();
                         break;
+                    case 5:
+                        return;
                     default:
                         System.out.println("Invalid.");
                         break;
@@ -64,7 +66,8 @@ public class ClientRestTemplate {
         System.out.println("Для отправки POST-запроса нажмите 1: " +
                 "\nДля отправки GET-запроса нажмите 2: " +
                 "\nДля отправки PUT-запроса нажмите 3: " +
-                "\nДля отправки DELETE-запроса нажмите 4: ");
+                "\nДля отправки DELETE-запроса нажмите 4: " +
+                "\nДля выхода нажмите 5: ");
     }
 
     private static void doPost() throws Exception {
