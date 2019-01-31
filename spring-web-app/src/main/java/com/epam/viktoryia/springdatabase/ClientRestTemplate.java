@@ -15,9 +15,13 @@ public class ClientRestTemplate {
     private static final Integer ID = 1;
     private static final String URL = "http://localhost:8080/employee/";
 
-    private static RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate = new RestTemplate();
 
-    private static Employee createEmployeeObject(Integer id, String name, Integer age) {
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    private Employee createEmployeeObject(Integer id, String name, Integer age) {
         Employee employee = new Employee();
         employee.setId(id);
         employee.setName(name);
@@ -25,10 +29,10 @@ public class ClientRestTemplate {
         return employee;
     }
 
-    private static List <Employee> employeeList = new ArrayList <>();
+    private List <Employee> employeeList = new ArrayList <>();
 
     public static void main(String args[]) {
-
+        ClientRestTemplate client = new ClientRestTemplate();
         Scanner scanner = new Scanner(System.in);
 
         menu();
@@ -37,16 +41,16 @@ public class ClientRestTemplate {
             while (scanner.hasNext()) {
                 switch (scanner.nextInt()) {
                     case 1:
-                        doPost();
+                        client.doPost();
                         break;
                     case 2:
-                        doGet();
+                        client.doGet();
                         break;
                     case 3:
-                        doPut();
+                        client.doPut();
                         break;
                     case 4:
-                        doDelete();
+                        client.doDelete();
                         break;
                     case 5:
                         return;
@@ -70,8 +74,8 @@ public class ClientRestTemplate {
                 "\nДля выхода нажмите 5: ");
     }
 
-    private static void doPost() throws Exception {
-        employeeList.add(createEmployeeObject(ID, "ggg", 20));
+    void doPost() throws Exception {
+        employeeList.add(createEmployeeObject(ID, "aaa", 20));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -81,7 +85,7 @@ public class ClientRestTemplate {
         System.out.println("POST выполнен");
     }
 
-    private static void doGet() throws Exception {
+    void doGet() throws Exception {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -91,7 +95,7 @@ public class ClientRestTemplate {
         System.out.println("GET выполнен: " + response);
     }
 
-    private static void doPut() throws Exception {
+    void doPut() throws Exception {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -102,7 +106,7 @@ public class ClientRestTemplate {
         System.out.println("PUT выполнен ");
     }
 
-    private static void doDelete() throws Exception {
+    void doDelete() throws Exception {
 
         restTemplate.delete(URL + ID);
 
