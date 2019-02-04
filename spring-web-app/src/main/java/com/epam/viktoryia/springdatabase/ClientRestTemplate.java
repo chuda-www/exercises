@@ -17,10 +17,6 @@ public class ClientRestTemplate {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public void setRestTemplate(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
     private Employee createEmployeeObject(Integer id, String name, Integer age) {
         Employee employee = new Employee();
         employee.setId(id);
