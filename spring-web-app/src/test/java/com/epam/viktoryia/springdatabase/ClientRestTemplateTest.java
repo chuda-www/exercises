@@ -47,9 +47,6 @@ public class ClientRestTemplateTest extends Mockito {
 
     @Test
     public void testDoPut() throws Exception {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-//        HttpEntity <String> httpEntity = new HttpEntity("\"uuu\"", headers);
 
         clientRestTemplate.doPut();
         verify(restTemplate, times(1)).put(Mockito.eq(URL + ID), httpEntityCaptor.capture());
