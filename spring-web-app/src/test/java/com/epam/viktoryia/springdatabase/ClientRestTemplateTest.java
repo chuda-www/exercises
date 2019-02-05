@@ -4,11 +4,12 @@ import com.epam.viktoryia.springdatabase.model.Employee;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class ClientRestTemplateTest extends Mockito {
     RestTemplate restTemplate;
     @InjectMocks
     ClientRestTemplate clientRestTemplate;
-    @Captor
-    ArgumentCaptor <HttpEntity> httpEntityCaptor = ArgumentCaptor.forClass(HttpEntity.class);
+
+    private ArgumentCaptor <HttpEntity> httpEntityCaptor = ArgumentCaptor.forClass(HttpEntity.class);
 
     @Test
     public void testDoPost() throws Exception {
@@ -34,6 +35,7 @@ public class ClientRestTemplateTest extends Mockito {
         HttpEntity capturedHttpEntity = httpEntityCaptor.getValue();
         List <Employee> body = (List <Employee>) capturedHttpEntity.getBody();
         Assert.assertEquals("aaa", body.get(0).getName());
+        Assert.assertEquals(new Integer(20), body.get(0).getAge());
     }
 
     @Test
@@ -45,12 +47,15 @@ public class ClientRestTemplateTest extends Mockito {
 
     @Test
     public void testDoPut() throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity <String> httpEntity = new HttpEntity("\"uuu\"", headers);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+//        HttpEntity <String> httpEntity = new HttpEntity("\"uuu\"", headers);
 
         clientRestTemplate.doPut();
-        verify(restTemplate, times(1)).put(URL + ID, httpEntity);
+        verify(restTemplate, times(1)).put(Mockito.eq(URL + ID), httpEntityCaptor.capture());
+        HttpEntity capturedHttpEntity = httpEntityCaptor.getValue();
+        Object body = capturedHttpEntity.getBody();
+        Assert.assertEquals(new String("\"uuu\""), body);
     }
 
     @Test
