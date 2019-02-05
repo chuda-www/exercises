@@ -55,7 +55,7 @@ public class ClientRestTemplateTest extends Mockito {
         verify(restTemplate, times(1)).put(Mockito.eq(URL + ID), httpEntityCaptor.capture());
         HttpEntity capturedHttpEntity = httpEntityCaptor.getValue();
         Object body = capturedHttpEntity.getBody();
-        Assert.assertEquals(new String("\"uuu\""), body);
+        Assert.assertEquals("\"uuu\"", body);
     }
 
     @Test
