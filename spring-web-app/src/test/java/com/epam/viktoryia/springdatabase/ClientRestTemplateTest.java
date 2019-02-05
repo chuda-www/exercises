@@ -1,5 +1,7 @@
 package com.epam.viktoryia.springdatabase;
 
+import com.epam.viktoryia.springdatabase.model.Employee;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
@@ -29,6 +31,9 @@ public class ClientRestTemplateTest extends Mockito {
 
         clientRestTemplate.doPost();
         verify(restTemplate).postForObject(Mockito.eq(URL), httpEntityCaptor.capture(), Mockito.eq(List.class));
+        HttpEntity capturedHttpEntity = httpEntityCaptor.getValue();
+        List <Employee> body = (List <Employee>) capturedHttpEntity.getBody();
+        Assert.assertEquals("aaa", body.get(0).getName());
     }
 
     @Test

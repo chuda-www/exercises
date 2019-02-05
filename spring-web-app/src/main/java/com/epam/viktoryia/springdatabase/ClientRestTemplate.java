@@ -83,9 +83,6 @@ public class ClientRestTemplate {
 
     void doGet() throws Exception {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
         List <Employee> response = restTemplate.getForObject(URL, List.class);
 
         System.out.println("GET выполнен: " + response);
