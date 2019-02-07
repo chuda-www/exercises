@@ -9,8 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -63,9 +63,9 @@ public class ClientRestTemplateTest extends Mockito {
         verify(restTemplate, times(1)).delete(URL + ID);
     }
 
-    @Test(expected = DuplicateKeyException.class)
+    @Test(expected = RestClientException.class)
     public void testRestClientException() throws Exception {
-        when(restTemplate.postForObject(Mockito.eq(URL), Mockito.any(), Mockito.eq(List.class))).thenThrow(new DuplicateKeyException("Duplicate exception"));
+        when(restTemplate.postForObject(Mockito.eq(URL), Mockito.any(), Mockito.eq(List.class))).thenThrow(new RestClientException("Exception"));
         clientRestTemplate.doPost();
     }
 }
