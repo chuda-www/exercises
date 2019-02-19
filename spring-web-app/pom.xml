@@ -17,14 +17,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId> com.fasterxml.jackson.dataformat </groupId>
-            <artifactId> jackson-dataformat-xml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
         </dependency>
