@@ -20,6 +20,7 @@ public class EmployeesService {
         }
     }
 
+    @Cacheable(value = "employee", key = "#id", sync = true)
     public Employee getEmployeeById(Integer id) {
         return employeeDAO.getById(id);
     }

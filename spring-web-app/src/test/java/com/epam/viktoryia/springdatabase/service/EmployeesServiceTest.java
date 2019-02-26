@@ -25,8 +25,8 @@ public class EmployeesServiceTest {
 
     @Test
     public void createEmployees() {
-        Employee employee1 = createEmployeeObject(1,"Yulia", 11);
-        Employee employee2 = createEmployeeObject(2,"Grad", 52);
+        Employee employee1 = createEmployeeObject(1, "Yulia", 11);
+        Employee employee2 = createEmployeeObject(2, "Grad", 52);
         List <Employee> employeeList = new ArrayList <>();
         employeeList.add(employee1);
         employeeList.add(employee2);
