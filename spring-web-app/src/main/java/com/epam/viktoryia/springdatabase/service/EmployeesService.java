@@ -3,6 +3,7 @@ package com.epam.viktoryia.springdatabase.service;
 import com.epam.viktoryia.springdatabase.dao.EmployeeDAO;
 import com.epam.viktoryia.springdatabase.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,6 +18,11 @@ public class EmployeesService {
         for (Employee employee : employeeList) {
             employeeDAO.create(employee);
         }
+    }
+
+    @Cacheable(value = "employee", key = "#id", sync = true)
+    public Employee getEmployeeById(Integer id) {
+        return employeeDAO.getById(id);
     }
 
     public List <Employee> getEmployees() {

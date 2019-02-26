@@ -2,9 +2,10 @@ package com.epam.viktoryia.springdatabase.model;
 
 public class Employee {
 
+    private Integer id;
     private String name;
     private Integer age;
-    private Integer id;
+
 
     public void setName(String name) {
         this.name = name;

@@ -24,6 +24,12 @@ public class RestController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Employee getEmployeeById(@PathVariable Integer id) {
+        return employeesService.getEmployeeById(id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public List <Employee> getAllEmployee() {

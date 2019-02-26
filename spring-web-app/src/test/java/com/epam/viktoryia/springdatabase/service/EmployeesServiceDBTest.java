@@ -98,6 +98,16 @@ public class EmployeesServiceDBTest {
         Assert.assertEquals(0, rowsInTable1);
     }
 
+    @Test
+    public void getEmployeeById() {
+        String SQL = "INSERT INTO Employee (name, age) VALUES ('Mamba', 30)";
+        jdbcTemplate.update(SQL);
+        Employee response1 = employeesService.getEmployeeById(1);
+        Employee response2 = employeesService.getEmployeeById(1);
+        Assert.assertEquals("Mamba", response1.getName());
+        Assert.assertEquals(response2, response1);
+    }
+
     private static Employee createEmployeeObject(String name, Integer age) {
         Employee employee = new Employee();
         employee.setName(name);
